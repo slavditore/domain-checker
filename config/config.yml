@@ -1,0 +1,5 @@
+version: '1'
+groups:
+- group: name1
+  domains:
+  - google.com 
