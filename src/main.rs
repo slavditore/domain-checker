@@ -1,9 +1,7 @@
-use std::fs;
-use std::path::Path;
+mod file;
 
 fn main() {
-    let filename = Path::new("./src/config.yml");
-    let contents = fs::read_to_string(filename)
-        .expect("Something went wrong reading the file");
-    println!("{}", contents)
+    let file: String  = "./src/config.yml".to_string();
+    let content = file::read_file(&file);
+    println!("{}", content)
 }
