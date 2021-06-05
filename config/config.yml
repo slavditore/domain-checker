@@ -1,5 +1,9 @@
-version: '1'
-groups:
-- group: name1
+config_version: '1'
+domain_groups:
+- name: 'group1'
   domains:
-  - google.com 
+  - 'gitlab.com'
+- name: 'group2'
+  domains:
+  - 'github.com'
+
