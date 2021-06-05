@@ -11,5 +11,6 @@ func main() {
 	log.Println("This is a reload of the project")
 	log.Println("Trying to read file")
 
-	configv1.ReadConfig(&file)
+	domains := configv1.ReadConfig(&file)
+	log.Printf("%v", domains)
 }
