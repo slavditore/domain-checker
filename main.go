@@ -1,14 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
+	"log"
+
+	configv1 "gitlab.com/slavditore/check-domain/v2/internal/config.v1"
 )
 
 func main() {
 	file := "./config/config.yml"
-	fmt.Println("This is a reload of the project")
-	fmt.Println("Trying to read file")
-	config, _ := ioutil.ReadFile(file)
-	fmt.Println(string(config))
+	log.Println("This is a reload of the project")
+	log.Println("Trying to read file")
+
+	configv1.ReadConfig(&file)
 }
