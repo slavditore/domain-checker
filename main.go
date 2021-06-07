@@ -3,16 +3,21 @@ package main
 import (
 	"log"
 
+	flag "github.com/spf13/pflag"
 	certcheck "gitlab.com/slavditore/check-domain/v2/internal/cert_check"
 	configv1 "gitlab.com/slavditore/check-domain/v2/internal/config.v1"
 	output_plain "gitlab.com/slavditore/check-domain/v2/internal/output_log"
 )
 
+var (
+	argFileName = flag.String("config", "./config/config.yml", "path to file with domains")
+)
+
 func main() {
-	file := "./config/config.yml"
+	flag.Parse()
 	log.Println("This is a reload of the project")
 	log.Println("Trying to read file")
-	domains := configv1.ReadConfig(&file)
+	domains := configv1.ReadConfig(argFileName)
 	log.Println("Process the logs")
 	domains = certcheck.CheckDomains(domains)
 	output_plain.PlainOutput(&domains)
