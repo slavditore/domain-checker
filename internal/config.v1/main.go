@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	. "gitlab.com/slavditore/check-domain/v2/internal/types"
+	"gitlab.com/slavditore/check-domain/v2/internal/types"
 	"gopkg.in/yaml.v2"
 )
 
@@ -20,9 +20,9 @@ func (config *ConfigV1) parseConfiguration(filename *string) *ConfigV1 {
 	return config
 }
 
-func ReadConfig(filename *string) []DomainStatus {
+func ReadConfig(filename *string) ([]types.DomainStatus, error) {
 	var config ConfigV1
-	var domains []DomainStatus
+	var domains []types.DomainStatus
 	config.parseConfiguration(filename)
 	for i := 0; i < len(config.Groups); i++ {
 		for j := 0; j < len(config.Groups[i].Domains); j++ {
