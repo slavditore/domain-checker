@@ -1,6 +1,7 @@
 package configv1
 
 import (
+	"errors"
 	"io/ioutil"
 	"log"
 
@@ -24,11 +25,15 @@ func ReadConfig(filename *string) ([]types.DomainStatus, error) {
 	var config ConfigV1
 	var domains []types.DomainStatus
 	config.parseConfiguration(filename)
-	for i := 0; i < len(config.Groups); i++ {
-		for j := 0; j < len(config.Groups[i].Domains); j++ {
-			domains = append(domains, DomainStatus{Name: config.Groups[i].Domains[j], Group: config.Groups[i].Name})
-			//fmt.Println(config.Groups[i].Domains[j])
+	if config.Version == "1" {
+		for i := 0; i < len(config.Groups); i++ {
+			for j := 0; j < len(config.Groups[i].Domains); j++ {
+				domains = append(domains, types.DomainStatus{Name: config.Groups[i].Domains[j], Group: config.Groups[i].Name})
+				//fmt.Println(config.Groups[i].Domains[j])
+			}
 		}
+		return domains, nil
+	} else {
+		return nil, errors.New("unsupported version of the configuration")
 	}
-	return domains
 }

@@ -17,7 +17,11 @@ func main() {
 	flag.Parse()
 	log.Println("This is a reload of the project")
 	log.Println("Trying to read file")
-	domains := configv1.ReadConfig(argFileName)
+	domains, err := configv1.ReadConfig(argFileName)
+	if err != nil {
+		log.Printf("unable to process the file: %v", err)
+		return
+	}
 	log.Println("Process the logs")
 	domains = certcheck.CheckDomains(domains)
 	output_plain.PlainOutput(&domains)
